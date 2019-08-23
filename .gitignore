@@ -1,5 +1,12 @@
 # Compiled class file
+.DS_Store
+*.iml
+*.idea/
 *.class
+*.settings/
+*.classpath
+*.project
+rebel.xml
 
 # Log file
 *.log
