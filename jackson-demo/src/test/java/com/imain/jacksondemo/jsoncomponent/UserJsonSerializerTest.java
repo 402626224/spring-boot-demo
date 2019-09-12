@@ -32,4 +32,20 @@ public class UserJsonSerializerTest extends JacksonDemoApplicationTests {
         System.out.println(user);
     }
 
+
+    private static int orderByAsc(double a, double b) {
+        return a == b ? 0 : (a > b ? 1 : -1);
+    }
+
+    private static int orderByDesc(double a, double b) {
+        return a == b ? 0 : (a > b ? -1 : 1);
+    }
+
+    @Test
+    public void test() {
+        System.out.println(orderByAsc(1, 2));
+        System.out.println(orderByAsc(2, 2));
+        System.out.println(orderByAsc(3, 2));
+    }
+
 }

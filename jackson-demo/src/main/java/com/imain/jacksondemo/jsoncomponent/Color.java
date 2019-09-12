@@ -10,6 +10,15 @@ public class Color {
     private Integer blue;
     private Integer green;
 
+    public Color() {
+    }
+
+    public Color(Integer red, Integer blue, Integer green) {
+        this.red = red;
+        this.blue = blue;
+        this.green = green;
+    }
+
     public Integer getRed() {
         return red;
     }
