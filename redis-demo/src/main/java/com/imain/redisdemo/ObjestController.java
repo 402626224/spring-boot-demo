@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ObjestController {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, User> redisTemplate;
 
     @ResponseBody
     @RequestMapping("obj")
-    public Object setObj() {
+    public User setObj() {
         redisTemplate.opsForValue().set("aUser", new User().setAge("12").setName("tom"));
         return redisTemplate.opsForValue().get("aUser");
     }
