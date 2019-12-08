@@ -1,0 +1,13 @@
+核心框架：Spring Boot2 + Spring Cloud Alibaba + Spring Cloud Gateway
+安全框架：Spring Security OAuth2
+前端框架：Vue2 + Element-UI + Avue
+    Vue:https://cn.vuejs.org/
+    Element-UI:https://element.eleme.cn
+    Avue:https://avuejs.com
+持久层框架：MyBatis-plus
+微信开发Java SDK：WxJava2.4.0
+文件管理：阿里OSS、七牛云
+JDK版本：java8+
+数据库：mysql5.7+
+图表插件：Echarts
+
