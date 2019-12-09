@@ -1,10 +1,10 @@
-package com.imain.easyexceldemo;
+package com.imain.easypoidemo;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EasyexcelDemoApplicationTests {
+class EasypoiDemoApplicationTests {
 
     @Test
     void contextLoads() {

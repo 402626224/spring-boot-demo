@@ -8,16 +8,22 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>com.imain</groupId>
-    <artifactId>easyexcel-demo</artifactId>
+    <artifactId>easypoi-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>easyexcel-demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>easypoi-demo</name>
+    <description>Easy Poi Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-spring-boot-starter</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

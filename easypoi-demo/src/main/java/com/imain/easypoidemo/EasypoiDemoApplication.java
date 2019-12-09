@@ -1,13 +1,13 @@
-package com.imain.easyexceldemo;
+package com.imain.easypoidemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EasyexcelDemoApplication {
+public class EasypoiDemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EasyexcelDemoApplication.class, args);
+        SpringApplication.run(EasypoiDemoApplication.class, args);
     }
 
 }
