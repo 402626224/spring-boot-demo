@@ -14,6 +14,13 @@ public class User {
         return id;
     }
 
+    public User(){}
+
+    public User(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public User setId(Integer id) {
         this.id = id;
         return this;

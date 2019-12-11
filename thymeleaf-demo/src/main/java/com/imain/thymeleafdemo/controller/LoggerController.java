@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,13 +18,18 @@ import java.util.List;
 
 /**
  * author Songrui.Liu
- * date 2019/10/1220:40
+ * date 2019/10/12 20:40
  */
 @RestController
 @RequestMapping
 public class LoggerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerController.class);
+
+    @RequestMapping("body")
+    public String body(@RequestBody String body) {
+        return body;
+    }
 
     @RequestMapping("logger")
     public String logger() {
