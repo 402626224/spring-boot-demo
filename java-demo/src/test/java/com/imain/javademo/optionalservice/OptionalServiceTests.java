@@ -36,6 +36,25 @@ public class OptionalServiceTests {
         logger.info("user:={}", user);
     }
 
+    /**
+     * 这个示例中，两个 Optional  对象都包含非空值，两个方法都会返回对应的非空值。
+     * 不过，orElse() 方法仍然创建了 User 对象。与之相反，orElseGet() 方法不创建 User 对象。
+     */
+    @Test
+    public void givenPresentValue_whenCompare_thenOk() {
+        User user = new User(1, "1234");
+        logger.info("Using orElse");
+        User result = Optional.ofNullable(user).orElse(createNewUser());
+        logger.info("Using orElseGet");
+        User result2 = Optional.ofNullable(user).orElseGet(() -> createNewUser());
+    }
+
+    private User createNewUser() {
+        logger.info("exec createNewUser");
+        return new User();
+    }
+
+
     @Test
     public void testMap() {
         Optional<User> optional = Optional.ofNullable(user);

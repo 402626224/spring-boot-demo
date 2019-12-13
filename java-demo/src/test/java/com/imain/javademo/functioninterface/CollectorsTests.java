@@ -69,7 +69,7 @@ public class CollectorsTests {
 
     /**
      * 转换成块
-     * example： 示例学生分为会 大于40 与 不大于40 的两个集合
+     * example： 示例学生分为会 "大于40" 与 "不大于40" 的两个集合
      */
     @Test
     public void testPart() {
@@ -106,6 +106,23 @@ public class CollectorsTests {
     public void testJoin() {
         String names = list().stream().map(Student::getName).collect(Collectors.joining(",", "[", "]"));
         logger.info("names :{}", names);
+    }
+
+    @Test
+    public void testEx(){
+        OutstandingClass outstandingClass = getClass1();
+        Optional<OutstandingClass> optional = Optional.ofNullable(outstandingClass);
+
+
+        Object one = optional.map(c -> c.getStudents()).map(l -> l.get(0)).map(s -> s.getName()).orElseThrow(() -> new RuntimeException("name is null"));
+        logger.info("one : {}", one);
+
+        outstandingClass.getStudents().get(0).setName(null);
+        optional.map(Optional::of).orElseThrow(()->new RuntimeException("outClass is null "))
+                .map(c-> c.getStudents().get(0)).map(Optional::of).orElseThrow(()->new RuntimeException("student is null"))
+                .map(s-> s.getName()).orElseThrow(()-> new RuntimeException("student name is null"));
+
+
 
     }
 
