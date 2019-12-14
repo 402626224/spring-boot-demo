@@ -75,10 +75,10 @@ public class IndexController {
             HttpEntity<String> entity = new HttpEntity<>(url, headers);
             ResponseEntity<String> obj = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             String resp = obj.getBody();
-            logger.info("监控信息：{}", Optional.ofNullable(resp).orElse("403 授权失败"));
+            System.out.println("监控信息：" + Optional.ofNullable(resp).orElse("403 授权失败"));
             return new ResultInfoVo().setCode(200).setMsg(resp);
         } catch (Exception e) {
-            logger.info("postAjax", e);
+            e.printStackTrace();
         }
         return new ResultInfoVo().setCode(101).setMsg("请求失败");
     }
