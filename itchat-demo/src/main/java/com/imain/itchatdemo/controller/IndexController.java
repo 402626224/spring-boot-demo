@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * itchat4j: https://github.com/yaphone/itchat4j
@@ -43,7 +44,7 @@ public class IndexController {
     private HttpSession session;
 
     @RequestMapping("/")
-    public String index(Model model) throws Exception {
+    public String index(Model model) {
         Object paramVal = session.getAttribute("paramVal");
         model.addAttribute("paramVal", paramVal == null ? "" : paramVal);
         return "index";
@@ -74,6 +75,7 @@ public class IndexController {
             HttpEntity<String> entity = new HttpEntity<>(url, headers);
             ResponseEntity<String> obj = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             String resp = obj.getBody();
+            logger.info("监控信息：{}", Optional.ofNullable(resp).orElse("403 授权失败"));
             return new ResultInfoVo().setCode(200).setMsg(resp);
         } catch (Exception e) {
             logger.info("postAjax", e);
