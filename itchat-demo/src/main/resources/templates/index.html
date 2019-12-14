@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+    <head>
+        <script src="./js/jquery-3.4.1.min.js"></script>
+    </head>
+    <body>
+    <audio src='./js/song.ogg' style='display:none' id='audio'></audio>
+        <input type="text" name="param" id="paramInput" th:value="${paramVal}" style="width: 300px;"/>
+        <input id="startBtn" type="button" value="开始监控" onclick="startMonitor();"/>
+        <input type="button" value="停止监控" onclick="stopMin()"/>
+
+    <script type="text/javascript" >
+        var flag = true;
+        function startMonitor(){
+            if(flag){
+                flag = false;
+                sub();
+            }
+        }
+
+        function sub() {
+            var param = $("#paramInput").val();
+            $.get("/count", {param: param}, function (result) {
+                if(result.code!=200){
+                    alert(result.msg);
+                    flag = true;
+                    return ;
+                }else if(result.msg==null){
+                    alert("登录超时，请重新登录！");
+                    flag = true;
+                    return ;
+                }else {
+                    var jsons = JSON.parse(result.msg);
+                    var all = jsons.result.count.all;
+                    if (all == 0) {
+                        setTimeout("sub()", 1000);
+                    } else {
+                        addVoice();
+                    }
+                }
+            },"json");
+        }
+
+        function stopMin(){
+            location.href = location.href;
+        }
+
+        function addVoice(){
+            document.getElementById('audio').play();
+        }
+    </script>
+    </body>
+
+</html>

@@ -52,6 +52,10 @@
     </dependencies>
 
     <modules>
+        <module>java-demo</module>
+        <module>myexcel-demo</module>
+        <module>easypoi-demo</module>
+        <module>itchat-demo</module>
         <module>thymeleaf-demo</module>
         <module>ws-demo</module>
         <module>redis-demo</module>
