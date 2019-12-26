@@ -1,6 +1,7 @@
 package com.imain.javademo.downloadfile;
 
 
+import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -17,6 +18,10 @@ import java.util.concurrent.CountDownLatch;
  * 负责文件下载的类
  * author Songrui.Liu
  * date 2019/12/26 13:36
+ */
+
+/**
+ * 负责文件下载的类
  */
 public class DownloadThreadTask implements Runnable {
 
@@ -69,22 +74,30 @@ public class DownloadThreadTask implements Runnable {
             httpGet.addHeader("Range", "bytes=" + this.offset + "-" + (this.offset + this.length - 1));
             httpGet.addHeader("Referer", "http://api.bilibili.com");
             CloseableHttpResponse response = httpClient.execute(httpGet, context);
-            BufferedInputStream bis = new BufferedInputStream(response.getEntity().getContent());
-            byte[] buff = new byte[1024];
+            HttpEntity httpEntity = response.getEntity();
+            InputStream is = httpEntity.getContent();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            byte[] buff = new byte[2048];
             int bytesRead;
             File newFile = new File(fileName);
             RandomAccessFile raf = new RandomAccessFile(newFile, "rw");
-            while ((bytesRead = bis.read(buff, 0, buff.length)) != -1) {
+            int i = 0;
+            long startTime = System.currentTimeMillis();
+            while ((bytesRead = bis.read(buff, 0, 2048)) != -1) {
                 raf.seek(this.offset);
                 raf.write(buff, 0, bytesRead);
                 this.offset = this.offset + bytesRead;
+                i++;
             }
+            LOGGER.warn("while i:{} , time:{}ms", i, System.currentTimeMillis() - startTime);
             raf.close();
             bis.close();
         } catch (ClientProtocolException e) {
-            LOGGER.error("DownloadThread exception msg:", e);
+            LOGGER.error("DownloadThread exception msg:{}", e);
         } catch (IOException e) {
-            LOGGER.error("DownloadThread exception msg:", e);
+            LOGGER.error("DownloadThread exception msg:{}", e);
+        } catch (Exception e) {
+            LOGGER.error("DownloadThread exception msg:{}", e);
         } finally {
             end.countDown();
             LOGGER.info(end.getCount() + " is go on!");

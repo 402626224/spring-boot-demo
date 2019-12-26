@@ -8,6 +8,7 @@ package com.imain.javademo.downloadfile;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.util.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ public class DownLoadManager{
      * 每个线程下载的字节数
      */
     private long unitSize = 1000 * 1024;
-    private ExecutorService taskExecutor = Executors.newFixedThreadPool(10);
+    private ExecutorService taskExecutor = Executors.newFixedThreadPool(2);
 
     private CloseableHttpClient httpClient;
 
@@ -38,9 +39,9 @@ public class DownLoadManager{
         cm.setMaxTotal(100);
         httpClient = HttpClients.custom().setConnectionManager(cm).build();
     }
-//    public static void main(String[] args) throws IOException {
-//        new DownLoadManager().doDownload();
-//    }
+    public static void main(String[] args) throws IOException {
+        new DownLoadManager().doDownload();
+    }
     /**
      * 启动多个线程下载文件
      */
@@ -54,7 +55,7 @@ public class DownLoadManager{
 
         System.out.println("本地文件名称：" + fileName);
         long fileSize = this.getRemoteFileSize(remoteFileUrl);
-        this.createFile(localPath + fileName, fileSize);
+        this.createFile(localPath + System.currentTimeMillis() + fileName, fileSize);
         Long threadCount = (fileSize / unitSize) + (fileSize % unitSize != 0 ? 1 : 0);
         long offset = 0;
 
