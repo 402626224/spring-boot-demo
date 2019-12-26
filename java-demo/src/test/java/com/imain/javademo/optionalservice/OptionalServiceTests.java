@@ -6,10 +6,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -92,4 +89,23 @@ public class OptionalServiceTests {
     }
 
 
+    @Test
+    public void tes(){
+        List<String> strings = Arrays.asList("1", "2", "3");
+        strings.forEach(s -> {
+            try {
+                if (Objects.equals("2", s)) {
+
+                    throw new RuntimeException("a");
+                }
+
+            } catch (Exception e){logger.error(e.getMessage());}finally {
+                logger.info(s);
+            }
+        });
+
+        String s = strings.stream().collect(Collectors.joining(","));
+
+        logger.info(s);
+    }
 }
