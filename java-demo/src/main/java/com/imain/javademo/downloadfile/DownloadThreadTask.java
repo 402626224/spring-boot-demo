@@ -65,25 +65,27 @@ public class DownloadThreadTask implements Runnable {
         this.end = end;
         this.httpClient = httpClient;
         this.context = new BasicHttpContext();
-        LOGGER.debug("偏移量=" + offset + ";字节数=" + length);
+        LOGGER.info("偏移量=" + offset + ";字节数=" + length);
     }
 
     public void run() {
         try {
+            LOGGER.info("off:{} run", this.offset);
             HttpGet httpGet = new HttpGet(this.url);
             httpGet.addHeader("Range", "bytes=" + this.offset + "-" + (this.offset + this.length - 1));
             httpGet.addHeader("Referer", "http://api.bilibili.com");
             CloseableHttpResponse response = httpClient.execute(httpGet, context);
             HttpEntity httpEntity = response.getEntity();
             InputStream is = httpEntity.getContent();
-            BufferedInputStream bis = new BufferedInputStream(is);
-            byte[] buff = new byte[2048];
+            BufferedInputStream bis = new BufferedInputStream(is, (int) this.length/10);
+            int limit = 2048;
+            byte[] buff = new byte[limit];
             int bytesRead;
             File newFile = new File(fileName);
             RandomAccessFile raf = new RandomAccessFile(newFile, "rw");
             int i = 0;
             long startTime = System.currentTimeMillis();
-            while ((bytesRead = bis.read(buff, 0, 2048)) != -1) {
+            while ((bytesRead = bis.read(buff, 0, limit)) != -1) {
                 raf.seek(this.offset);
                 raf.write(buff, 0, bytesRead);
                 this.offset = this.offset + bytesRead;
@@ -101,7 +103,6 @@ public class DownloadThreadTask implements Runnable {
         } finally {
             end.countDown();
             LOGGER.info(end.getCount() + " is go on!");
-            System.out.println(end.getCount() + " is go on!");
         }
     }
 }

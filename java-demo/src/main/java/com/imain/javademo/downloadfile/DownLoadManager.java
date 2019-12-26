@@ -11,6 +11,9 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,13 +27,16 @@ import java.util.concurrent.Executors;
 /**
  * 文件下载管理类
  */
+@Service
 public class DownLoadManager{
     private static final Logger LOGGER = LoggerFactory.getLogger(DownLoadManager.class);
     /**
      * 每个线程下载的字节数
      */
-    private long unitSize = 1000 * 1024;
-    private ExecutorService taskExecutor = Executors.newFixedThreadPool(2);
+    private long unitSize = 100 * 1024;
+
+    @Autowired
+    private ThreadPoolTaskExecutor taskExecutor ;//= Executors.newFixedThreadPool(2);
 
     private CloseableHttpClient httpClient;
 
@@ -39,9 +45,9 @@ public class DownLoadManager{
         cm.setMaxTotal(100);
         httpClient = HttpClients.custom().setConnectionManager(cm).build();
     }
-    public static void main(String[] args) throws IOException {
-        new DownLoadManager().doDownload();
-    }
+//    public static void main(String[] args) throws IOException {
+//        new DownLoadManager().doDownload();
+//    }
     /**
      * 启动多个线程下载文件
      */
