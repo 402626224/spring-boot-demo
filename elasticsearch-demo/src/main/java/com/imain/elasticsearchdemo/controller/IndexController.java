@@ -1,5 +1,7 @@
 package com.imain.elasticsearchdemo.controller;
 
+import com.imain.elasticsearchdemo.service.InitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class IndexController {
+
 
     @RequestMapping("/")
     public String index() {
