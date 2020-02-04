@@ -1,13 +1,12 @@
 package com.imain.elasticsearchdemo.controller;
 
 import com.imain.elasticsearchdemo.model.PostModel;
-import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.data.web.PageableDefault;
@@ -86,7 +85,12 @@ public class SearchTemplateController {
         return elasticsearchTemplate.queryForList(searchQuery, PostModel.class);
     }
 
-
+    @RequestMapping("page")
+    public Object test(String word, @PageableDefault Pageable pageable) {
+        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryStringQuery(word)).withPageable(pageable).build();
+        AggregatedPage<PostModel> page = elasticsearchTemplate.queryForPage(searchQuery, PostModel.class);
+        return page;
+    }
 
 
 }

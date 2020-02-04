@@ -3,7 +3,7 @@ package com.imain.elasticsearchdemo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName="projectname",type="post",indexStoreType="fs",shards=5,replicas=1,refreshInterval="-1")
+@Document(indexName = "projectname", type = "post", indexStoreType = "fs", shards = 5, replicas = 1, refreshInterval = "-1")
 public class PostModel {
     @Id
     private String id;
