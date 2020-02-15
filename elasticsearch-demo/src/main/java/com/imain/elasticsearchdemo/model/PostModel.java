@@ -12,18 +12,18 @@ public class PostModel {
 
     private String content;
 
-    private int userId;
+    private Integer userId;
 
-    private int weight;
+    private Integer weight;
 
     @Override
     public String toString() {
         return "PostModel{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
                 ", userId=" + userId +
                 ", weight=" + weight +
+                ", content='" + content + '\'' +
                 '}';
     }
 
@@ -55,20 +55,20 @@ public class PostModel {
         return this;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public PostModel setUserId(int userId) {
+    public PostModel setUserId(Integer userId) {
         this.userId = userId;
         return this;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public PostModel setWeight(int weight) {
+    public PostModel setWeight(Integer weight) {
         this.weight = weight;
         return this;
     }
